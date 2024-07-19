@@ -1,7 +1,27 @@
 class CodeMaker
-  attr_reader :code
+  attr_reader :code, :code_colored
   def initialize
     @code = [get_random_color, get_random_color, get_random_color, get_random_color]
+    @code_colored = @code.map do |color|
+      case color
+      when 'r'
+        "\e[31mr\e[0m"
+      when 'g'
+        "\e[32mg\e[0m"
+      when 'b'
+        "\e[34mb\e[0m"
+      when 'y'
+        "\e[33my\e[0m"
+      when 'm'
+        "\e[35mm\e[0m"
+      when 'c'
+        "\e[36mc\e[0m"
+      when 'g'
+        "\e[30mg\e[0m"
+      when 'w'
+        "\e[37mw\e[0m"
+      end
+    end
   end
   def get_random_color
     $choices.sample

@@ -9,7 +9,7 @@ class CodeBreaker
     def is_valid?(arr)
         arr.length == 4 &&
         arr.all? do |val|
-            valid_color_abbrv = $choices.map { |x| x.to_s[0] }
+            valid_color_abbrv = $choices.map { |x| x.to_s[0].chars.first }
             valid_color_abbrv.any? { |arr| arr == val}
         end
     end
