@@ -6,6 +6,9 @@ class CodeMaker
   def get_random_color
     $choices.sample
   end
+  def has_won?(guess)
+    guess === @code
+  end
   def give_feedback(guess)
     exact = 0
     close = 0
@@ -21,7 +24,7 @@ class CodeMaker
         close += 1
       end
     end
-    p "Exact: #{exact}"
-    p "Close: #{close}"
+    p "Exact matches: #{exact}"
+    p "Close matches: #{close}"
   end
 end

@@ -1,13 +1,10 @@
 class CodeBreaker
     attr_reader :guess
     def initialize
-        # @turn = $turn
-        # @likeness = 'Match: #{@total_matches} Wrong Position: #{@total_matches_wrong_pos}'
     end
     def make_guess
         input = gets.chomp.split('')
-        is_valid?(input) ? @guess = input : make_guess && return
-        # @turns_remaining -= 1
+        is_valid?(input) ? @guess = input : (p 'Invalid entry. Please enter a valid entry') && make_guess && return
     end
     def is_valid?(arr)
         arr.length == 4 &&
@@ -17,5 +14,3 @@ class CodeBreaker
         end
     end
 end
-
-# How to get game and turn to link? Where is the line drawn in terms of what goes where? Likely need to rejig some of this
