@@ -5,8 +5,8 @@ class Game
         # @board = Array.new(4, {turn: ;values: []}) make turn a new object. Can have Turn number increase globally, rest locally
             # perhaps each turn creates a new array and pushes it into this? Yes, can have a turns left counter as well
         $choices = ['r', 'g', 'b', 'y', 'm', 'c', 'g', 'w']
-        @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'm'.color(:magenta), 'c'.color(:cyan), 'g'.color(:black), 'w'.color(:white)]
-        @turn = 2
+        @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'm'.color(:magenta), 'c'.color(:cyan), 'd'.color(:black), 'w'.color(:white)]
+        @turn = 6
     end
     def color_text(string)
       string.map
@@ -29,6 +29,6 @@ class Game
         p "You win! The code was '#{@code_maker.code_colored.join('')}'"
     end
     def loser
-        puts "You lose! The code was '#{@code_maker.code_colored.join('')}'".red
+        puts "You lose! The code was '#{@code_maker.code_colored.join('')}'"
     end
 end
