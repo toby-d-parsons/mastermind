@@ -2,10 +2,9 @@ using Rainbow
 
 class Game
     def initialize
-        # @board = Array.new(4, {turn: ;values: []}) make turn a new object. Can have Turn number increase globally, rest locally
-            # perhaps each turn creates a new array and pushes it into this? Yes, can have a turns left counter as well
-        $choices = ['r', 'g', 'b', 'y', 'm', 'c', 'd', 'w']
-        @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'm'.color(:magenta), 'c'.color(:cyan), 'd'.color(:black), 'w'.color(:white)]
+        @board = []
+        $choices = ['r', 'g', 'b', 'y', 'p', 'c', 'd', 'w']
+        @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'p'.color(:magenta), 'c'.color(:cyan), 'd'.color(:black), 'w'.color(:white)]
         @turn = 6
     end
     def color_text(string)
@@ -21,12 +20,18 @@ class Game
             # p @code_maker.code
             @code_maker.has_won?(code_breaker.guess) ? winner && return : @code_maker.give_feedback(code_breaker.guess)
             @turn -= 1
+            @board.push([
+                code_breaker.guess_colored,
+                " Exact: #{@code_maker.exact}",
+                " Close: #{@code_maker.close}"
+            ].join(''))
+            puts @board
             p "Guesses remaining: #{@turn}"
         end
         loser
     end
     def winner
-        p "You win! The code was '#{@code_maker.code_colored.join('')}'"
+        puts "You win! The code was '#{@code_maker.code_colored.join('')}'"
     end
     def loser
         puts "You lose! The code was '#{@code_maker.code_colored.join('')}'"
