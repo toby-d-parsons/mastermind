@@ -4,7 +4,7 @@ class Game
     def initialize
         # @board = Array.new(4, {turn: ;values: []}) make turn a new object. Can have Turn number increase globally, rest locally
             # perhaps each turn creates a new array and pushes it into this? Yes, can have a turns left counter as well
-        $choices = ['r', 'g', 'b', 'y', 'm', 'c', 'g', 'w']
+        $choices = ['r', 'g', 'b', 'y', 'm', 'c', 'd', 'w']
         @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'm'.color(:magenta), 'c'.color(:cyan), 'd'.color(:black), 'w'.color(:white)]
         @turn = 6
     end
