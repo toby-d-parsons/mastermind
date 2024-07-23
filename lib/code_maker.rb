@@ -1,40 +1,23 @@
 class CodeMaker
-  attr_reader :code, :code_colored, :exact, :close
+  attr_reader :CODE_COLORED, :exact, :close
+  include ColorInputManager
   def initialize
-    @code = [get_random_color, get_random_color, get_random_color, get_random_color]
-    @code_colored = @code.map do |color|
-      case color
-      when 'r'
-        "\e[31mr\e[0m"
-      when 'g'
-        "\e[32mg\e[0m"
-      when 'b'
-        "\e[34mb\e[0m"
-      when 'y'
-        "\e[33my\e[0m"
-      when 'p'
-        "\e[35mp\e[0m"
-      when 'c'
-        "\e[36mc\e[0m"
-      when 'd'
-        "\e[30md\e[0m"
-      when 'w'
-        "\e[37mw\e[0m"
-      end
-    end
+    @CODE = [get_random_color, get_random_color, get_random_color, get_random_color]
+    @CODE_COLORED = ColorInputManager.colorize_text(@CODE)
+    # p @CODE
   end
   def get_random_color
-    $choices.sample
+    COLOR_KEYS.sample
   end
   def has_won?(guess)
-    guess === @code
+    guess === @CODE
   end
   def give_feedback(guess)
     @exact = 0
     @close = 0
     guess_rem = []
     exact_rem = []
-    guess.zip(@code).each do |guess, actual|
+    guess.zip(@CODE).each do |guess, actual|
       guess === actual ? @exact +=1 : guess_rem.push(guess) && exact_rem.push(actual)
     end
     guess_rem.each do |guess|

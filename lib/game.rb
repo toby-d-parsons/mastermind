@@ -1,24 +1,25 @@
+require_relative './color_input_manager.rb'
 using Rainbow
 
 class Game
+    include ColorInputManager
     def initialize
         @board = []
-        $choices = ['r', 'g', 'b', 'y', 'p', 'c', 'd', 'w']
-        @choices_colored = ['r'.color(:red), 'g'.color(:green), 'b'.color(:blue), 'y'.color(:yellow), 'p'.color(:magenta), 'c'.color(:cyan), 'd'.color(:black), 'w'.color(:white)]
         @turn = 6
-    end
-    def color_text(string)
-      string.map
     end
     def play
         @code_maker = CodeMaker.new
         code_breaker = CodeBreaker.new
         p "Please guess the 4-character code with the following choices:"
-        puts "#{@choices_colored.join(', ')}"
+        puts "#{COLOR_KEYS_FORMATTED.join(', ')}"
         while @turn > 0 do
             code_breaker.make_guess
-            # p @code_maker.code
-            @code_maker.has_won?(code_breaker.guess) ? winner && return : @code_maker.give_feedback(code_breaker.guess)
+            if @code_maker.has_won?(code_breaker.guess)
+                winner
+                return
+            else
+                @code_maker.give_feedback(code_breaker.guess)
+            end
             @turn -= 1
             @board.push([
                 code_breaker.guess_colored,
@@ -31,9 +32,9 @@ class Game
         loser
     end
     def winner
-        puts "You win! The code was '#{@code_maker.code_colored.join('')}'"
+        puts "You win! The code was '#{@code_maker.CODE_COLORED.join('')}'"
     end
     def loser
-        puts "You lose! The code was '#{@code_maker.code_colored.join('')}'"
+        puts "You lose! The code was '#{@code_maker.CODE_COLORED.join('')}'"
     end
 end
