@@ -8,7 +8,8 @@ This is an application that allows you to play the renowned code-breaking game '
 
 - Terminal-based gameplay
 - Colored text for ease of play
-- Randomly generated codes to guess
+- Choose your role: Play as `code_maker` or `code_breaker`
+- Once you have chosen your role, play against the computer
 
 ## Installation
 
