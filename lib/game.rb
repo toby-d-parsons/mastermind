@@ -1,17 +1,22 @@
 require_relative './color_input_manager.rb'
+require_relative './input_validator.rb'
 using Rainbow
 
 class Game
     include ColorInputManager
     def initialize
-        @board = []
+        @board = ["#{COLOR_KEYS_FORMATTED.join(', ')}"]
         @turn = 6
     end
     def play
-        @code_maker = CodeMaker.new
-        code_breaker = CodeBreaker.new
-        p "Please guess the 4-character code with the following choices:"
-        puts "#{COLOR_KEYS_FORMATTED.join(', ')}"
+        puts "Select \e[92mcode_breaker\e[0m or \e[92mcode_maker\e[0m"
+        player_role = player_role_chooser
+        @code_maker = CodeMaker.new(player_role)
+        code_breaker = CodeBreaker.new(player_role)
+        if player_role == "code_breaker"
+          p "Please guess the 4-character code with the following choices:"
+          puts "#{COLOR_KEYS_FORMATTED.join(', ')}"
+        end
         while @turn > 0 do
             code_breaker.make_guess
             if @code_maker.has_won?(code_breaker.guess)
@@ -31,10 +36,20 @@ class Game
         end
         loser
     end
+    def player_role_chooser
+      choice = gets.chomp
+      if (choice == "code_maker" || choice == "code_breaker")
+        choice
+      else
+        puts "Please select either \e[92mcode_breaker\e[0m or \e[92mcode_maker\e[0m"
+        player_role_chooser
+        return
+      end
+    end
     def winner
-        puts "You win! The code was '#{@code_maker.CODE_COLORED.join('')}'"
+        puts "The code breaker win! The code was '#{@code_maker.CODE_COLORED.join('')}'"
     end
     def loser
-        puts "You lose! The code was '#{@code_maker.CODE_COLORED.join('')}'"
+        puts "The code breaker loses! The code was '#{@code_maker.CODE_COLORED.join('')}'"
     end
 end

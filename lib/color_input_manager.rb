@@ -2,7 +2,7 @@ module ColorInputManager
   COLOR_KEYS = ['r', 'g', 'b', 'y', 'p', 'c', 'd', 'w']
 
   def self.colorize_text(arr)
-    arr_colored = arr.map do |color|
+    arr.map do |color|
       case color
       when 'r'
         "\e[31mr\e[0m" # Red
