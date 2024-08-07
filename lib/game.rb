@@ -6,7 +6,8 @@ class Game
     include ColorInputManager
     def initialize
         @board = ["#{COLOR_KEYS_FORMATTED.join(', ')}"]
-        @turn = 6
+        @initial_turn = 6
+        @turn = @initial_turn
     end
     def play
         puts "Select \e[92mcode_breaker\e[0m or \e[92mcode_maker\e[0m"
@@ -18,12 +19,14 @@ class Game
           puts "#{COLOR_KEYS_FORMATTED.join(', ')}"
         end
         while @turn > 0 do
-            code_breaker.make_guess
+            code_breaker.make_guess(@initial_turn, @turn)
             if @code_maker.has_won?(code_breaker.guess)
                 winner
                 return
             else
                 @code_maker.give_feedback(code_breaker.guess)
+                arr_exact_close = @code_maker.exact_close_count
+                code_breaker.remove_incorrect_combs(arr_exact_close)
             end
             @turn -= 1
             @board.push([

@@ -41,4 +41,7 @@ class CodeMaker
       end
     end
   end
+  def exact_close_count
+    return @exact, @close
+  end
 end

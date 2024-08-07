@@ -1,5 +1,5 @@
 module ColorInputManager
-  COLOR_KEYS = ['r', 'g', 'b', 'y', 'p', 'c', 'd', 'w']
+  COLOR_KEYS = ['r', 'g', 'b', 'y', 'p', 'c']
 
   def self.colorize_text(arr)
     arr.map do |color|
@@ -17,9 +17,9 @@ module ColorInputManager
       when 'c'
         "\e[36mc\e[0m" # Cyan
       when 'd'
-        "\e[30md\e[0m" # Dark grey
+        "\e[30md\e[0m" # Dark grey - currently not in use
       when 'w'
-        "\e[37mw\e[0m" # White
+        "\e[37mw\e[0m" # White - currently not in use
       end
     end
   end
