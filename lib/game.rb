@@ -1,5 +1,6 @@
 require_relative './color_input_manager.rb'
 require_relative './input_validator.rb'
+require_relative 'mastermind_checker'
 using Rainbow
 
 class Game
@@ -24,15 +25,14 @@ class Game
                 winner
                 return
             else
-                @code_maker.give_feedback(code_breaker.guess)
-                arr_exact_close = @code_maker.exact_close_count
+                arr_exact_close = MastermindChecker.check_matches(code_breaker.guess, @code_maker.CODE)
                 code_breaker.remove_incorrect_combs(arr_exact_close)
             end
             @turn -= 1
             @board.push([
                 code_breaker.guess_colored,
-                " Exact: #{@code_maker.exact}",
-                " Close: #{@code_maker.close}"
+                " Exact: #{arr_exact_close[0]}",
+                " Close: #{arr_exact_close[1]}"
             ].join(''))
             puts @board
             p "Guesses remaining: #{@turn}"

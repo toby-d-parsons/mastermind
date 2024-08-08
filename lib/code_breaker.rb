@@ -1,6 +1,6 @@
 class CodeBreaker
     attr_reader :guess, :guess_colored
-    include ColorInputManager, InputValidator
+    include ColorInputManager, InputValidator, MastermindChecker
     def initialize(player_role)
       @player_role = player_role
       generate_combinations
@@ -15,7 +15,7 @@ class CodeBreaker
         @guess_colored = ColorInputManager.colorize_text(@guess)
         sleep(0.5)
       else
-        @guess = @arr[0]
+        @guess = @arr.sample
         @guess_colored = ColorInputManager.colorize_text(@guess)
         sleep(0.5)
       end
@@ -32,23 +32,10 @@ class CodeBreaker
     def remove_incorrect_combs(guess_feedback)
       @arr.delete(@guess) # Removes guess from pool
       @arr = @arr.select do |item|
-        par1_rem = []
-        par2_rem = []
-        @potential_feedback = [0, 0]
-        item.zip(@guess).each do |par1, par2|
-          par1 === par2 ? @potential_feedback[0] += 1 : par1_rem.push(par1) && par2_rem.push(par2)
-        end
-        par1_rem.each do |par1|
-          if par2_rem.include?(par1)
-            index = par2_rem.index(par1)
-            par2_rem.delete_at(index)
-            @potential_feedback[1] += 1
-          end
-        end
-        keep_combination?(guess_feedback, @potential_feedback)
+        keep_combination?(guess_feedback, MastermindChecker.check_matches(item, @guess))
       end
     end
-    
+
     def keep_combination?(guess_feedback, potential_feedback)
       guess_feedback === potential_feedback
     end

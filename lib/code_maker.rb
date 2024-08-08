@@ -1,5 +1,5 @@
 class CodeMaker
-  attr_reader :CODE_COLORED, :exact, :close
+  attr_reader :CODE, :CODE_COLORED, :exact, :close
   include ColorInputManager, InputValidator
   def initialize(player_role)
     @player_role = player_role
@@ -24,24 +24,5 @@ class CodeMaker
   end
   def has_won?(guess)
     guess === @CODE
-  end
-  def give_feedback(guess)
-    @exact = 0
-    @close = 0
-    guess_rem = []
-    exact_rem = []
-    guess.zip(@CODE).each do |guess, actual|
-      guess === actual ? @exact +=1 : guess_rem.push(guess) && exact_rem.push(actual)
-    end
-    guess_rem.each do |guess|
-      if exact_rem.include?(guess)
-        index = exact_rem.index(guess)
-        exact_rem.delete_at(index)
-        @close += 1
-      end
-    end
-  end
-  def exact_close_count
-    return @exact, @close
   end
 end
