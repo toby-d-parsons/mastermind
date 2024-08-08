@@ -8,7 +8,3 @@ module InputValidator
     end
   end
 end
-
-
-# Validate input both when making and breaking code. Should be the same length/option
-# Consider moving validation for player_role here
