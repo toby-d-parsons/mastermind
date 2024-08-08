@@ -23,6 +23,5 @@ module ColorInputManager
       end
     end
   end
-
   COLOR_KEYS_FORMATTED = colorize_text(COLOR_KEYS)
 end
