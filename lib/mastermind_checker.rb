@@ -8,8 +8,10 @@ module MastermindChecker
       item1 === item2 ? feedback[0] += 1 : arr3_temp.push(item1) && arr4_temp.push(item2)
     end
 
-    no_match = arr3_temp - arr4_temp
-    close_matches = arr3_temp.length - no_match.length
+    arr3_temp.each do |element|
+      arr4_temp.delete_at(arr4_temp.index(element)) if arr4_temp.include?(element)
+    end
+    close_matches = arr4_temp.length
     feedback[1] = close_matches
 
     return feedback

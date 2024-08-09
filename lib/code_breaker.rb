@@ -21,11 +21,58 @@ class CodeBreaker
 
       sleep(0.5)
     else
-      @guess = @arr.sample
+      @guess = choose_best_guess
       @guess_colored = ColorInputManager.colorize_text(@guess)
 
       sleep(0.5)
     end
+  end
+
+  def choose_best_guess
+    largest_group = []
+    @arr.each do |outer_item|
+      permutations = {
+        00 => 0,
+        01 => 0,
+        02 => 0,
+        03 => 0,
+        04 => 0,
+        10 => 0,
+        11 => 0,
+        12 => 0,
+        13 => 0,
+        14 => 0,
+        20 => 0,
+        21 => 0,
+        22 => 0,
+        23 => 0,
+        24 => 0,
+        30 => 0,
+        31 => 0,
+        32 => 0,
+        33 => 0,
+        34 => 0,
+        40 => 0,
+        41 => 0,
+        42 => 0,
+        43 => 0,
+        44 => 0
+      }
+      @arr.each do |inner_item|
+        next if outer_item == inner_item
+        matches = MastermindChecker.check_matches(outer_item, inner_item)
+                                   .join("")
+                                   .to_i
+        permutations[matches] += 1
+      end
+      largest_group.push([outer_item, largest_hash_key(permutations)[1]])
+    end
+    largest_group.sort_by { |item| item[1] }
+                 .first[0]
+  end
+
+  def largest_hash_key(hash)
+    hash.max_by{|k,v| v}
   end
 
   def get_random_color
@@ -38,7 +85,7 @@ class CodeBreaker
 
   def remove_incorrect_combs(guess_feedback)
     @arr.delete(@guess) # Removes guess from pool
-    
+
     @arr = @arr.select do |item|
       keep_combination?(guess_feedback, MastermindChecker.check_matches(item, @guess))
     end
