@@ -11,7 +11,7 @@ module MastermindChecker
     arr3_temp.each do |element|
       arr4_temp.delete_at(arr4_temp.index(element)) if arr4_temp.include?(element)
     end
-    close_matches = arr4_temp.length
+    close_matches = arr3_temp.length - arr4_temp.length
     feedback[1] = close_matches
 
     return feedback

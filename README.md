@@ -10,7 +10,7 @@ This is an application that allows you to play the renowned code-breaking game '
 - Colored text for ease of play
 - Choose your role: Play as `code_maker` or `code_breaker`
 - Once you have chosen your role, play against the computer
-- Computer strategy when you are the code maker
+- Computer strategy when you are the code maker that solves on-average in less than 5 moves
 
 ## Installation
 
